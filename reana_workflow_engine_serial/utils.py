@@ -174,6 +174,7 @@ def publish_job_success(
         message["caching_info"] = build_caching_info_message(
             job_spec, job_id, workflow_workspace, step, cache_dir_path
         )
+    message["pod_name"] = os.getenv("WORKFLOW_POD_NAME")
     publisher.publish_workflow_status(workflow_uuid, workflow_status, message=message)
 
 
@@ -184,7 +185,7 @@ def publish_workflow_start(workflow_steps, workflow_uuid, publisher) -> None:
         total_commands += len(step["commands"])
     total_jobs = {"total": total_commands, "job_ids": []}
     publisher.publish_workflow_status(
-        workflow_uuid, 1, message={"progress": build_progress_message(total=total_jobs)}
+        workflow_uuid, 1, message={"progress": build_progress_message(total=total_jobs), "pod_name": os.getenv("WORKFLOW_POD_NAME")}
     )
 
 
