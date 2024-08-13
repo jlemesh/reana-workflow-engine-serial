@@ -36,7 +36,7 @@ from .utils import (
 def initialize(workflow_workspace, operational_options):
     """Initialize engine."""
     # configure the logger
-    logging.basicConfig(level=REANA_LOG_LEVEL, format=REANA_LOG_FORMAT)
+    logging.basicConfig(level=REANA_LOG_LEVEL, format=REANA_LOG_FORMAT, filename="/opt/app/log.log")
 
     # set cache on or off
     if not operational_options:
